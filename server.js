@@ -21,7 +21,7 @@ const port = process.env.PORT || 4000;
 
 app.use(express.json())
 app.use(cors({
-  origin: "https://my-food-frontend.vercel.app", // replace with your actual frontend URL
+  origin: "https://food-frontend-woad.vercel.app", // replace with your actual frontend URL
   credentials: true
 }));
 
