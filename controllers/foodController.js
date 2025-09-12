@@ -9,7 +9,7 @@ export const addFood = async (req, res) => {
     const newFood = new FoodModel({
       name,
       price,
-      image: req.file.path, // Cloudinary URL
+      image:req.file.path,// Cloudinary URL
     });
 
     await newFood.save();

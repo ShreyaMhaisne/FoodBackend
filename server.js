@@ -5,7 +5,7 @@ console.log("Stripe Key Loaded:", !!process.env.STRIPE_SECRET_KEY);
 
 import express from "express"
 import cors from "cors"
-import path from "path";   
+// import path from "path";   
 import { connectDB } from "./config/db.js"
 import foodRouter from "./routes/FoodRoute.js"
 import userRouter from "./routes/UseRoute.js"
@@ -31,7 +31,7 @@ connectDB();
 //api endpoint
 // app.use("/api/upload", uploads);
 app.use("/api/food",foodRouter)
-app.use("/images",express.static('uploads'))
+// app.use("/images",express.static('uploads'))
 app.use("/api/user",userRouter)
 app.use("/api/cart",cartRouter)
 app.use("/api/order",orderRouter)
@@ -40,6 +40,8 @@ app.get("/",(req,res)=>{
     res.send("API WORKING")
 })
 
-app.listen(port,()=>{
-    console.log(`Server Started on http://localhost:${port}`);
-})
+// app.listen(port,()=>{
+//     console.log(`Server Started on http://localhost:${port}`);
+// })
+
+export default app;
