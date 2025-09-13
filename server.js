@@ -18,11 +18,12 @@ const app= express()
 const port = process.env.PORT || 4000;
 
 // middleware
-
-app.use(express.json())
 app.use(cors({
-  origin: "https://food-frontend-woad.vercel.app", // replace with your actual frontend URL
-  credentials: true
+    origin: [
+        "https://food-frontend-woad.vercel.app",   // user frontend
+        "https://food-admin-nu.vercel.app"            // admin frontend
+    ],
+    credentials: true
 }));
 
 // db  connection
