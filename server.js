@@ -19,11 +19,13 @@ const port = process.env.PORT || 4000;
 
 // middleware
 app.use(cors({
-    origin: [
-        "https://food-frontend-woad.vercel.app",   // user frontend
-        "https://food-admin-nu.vercel.app"            // admin frontend
-    ],
-    credentials: true
+  origin: [
+    "http://localhost:5173",                 // admin local dev
+    "https://food-admin.vercel.app",         // deployed admin
+    "https://food-frontend-woad.vercel.app"  // normal user frontend
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
 
 // db  connection
