@@ -3,11 +3,16 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import validator from 'validator'
 
+const createToken = (id) => {
+    console.log("JWT_SECRET loaded:", !!process.env.JWT_SECRET);
+    return jwt.sign({ id }, process.env.JWT_SECRET)
+}
 
 //login user
 
 const loginUser = async (req, res) => {
  const {email,password}=req.body;
+  console.log("Login request body:", req.body);
  try {
     const user = await UserModel.findOne({email});
     if (!user) {
@@ -22,14 +27,12 @@ const loginUser = async (req, res) => {
     const token = createToken(user._id);
     res.json({success:true,token})
  } catch (error) {
-    console.log(error);
-    res.json({success:false,message:"Error"});
+      console.error("Login Error:", error.message);
+   res.status(500).json({ success: false, message: error.message });
  }
 }
 
-const createToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET)
-}
+
 // register user
 
 const registerUser = async (req, res) => {

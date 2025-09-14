@@ -5,9 +5,10 @@ const foodSchema = new mongoose.Schema({
     description: { type: String, required: true },
     price: { type: Number, required: true },
     image: { type: String, required: true },
-    category: { type: String, required: true }
+    category: { type: String, required: true },
+     imagePublicId: { type: String, required: true },
 })
 
-const foodModel =mongoose.models.food || mongoose.model("food",foodSchema);
+const FoodModel =mongoose.models.food || mongoose.model("food",foodSchema);
 
-export default foodModel;
+export default FoodModel;

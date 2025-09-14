@@ -11,7 +11,7 @@ const foodRouter = express.Router();
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "food-images",  // folder in your Cloudinary account
+    folder: "Home",  // folder in your Cloudinary account
     allowed_formats: ["jpg", "jpeg", "png"],
   },
 });
