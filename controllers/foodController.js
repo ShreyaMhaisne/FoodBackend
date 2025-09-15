@@ -4,23 +4,29 @@ import cloudinary from "../config/cloudinary.js";
 // Add food
 export const addFood = async (req, res) => {
   try {
-    const{ name, description, price, category  } = req.body;
-    if (!req.file) return res.status(400).json({ success: false, message: "Image is required" });
+    const { name, description, price, category } = req.body;
 
-    const newFood = new FoodModel({
-     name,
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "Image is required" });
+    }
+
+        console.log("Uploaded File:", req.file);
+    const imageUrl = req.file.path; // Cloudinary URL
+   const imagePublicId = req.file.filename || req.file.public_id;
+
+    const newFood = await FoodModel.create({
+      name,
       description,
       price,
       category,
-      image: req.file.path, // Cloudinary URL
-       imagePublicId: req.file.filename || req.file.public_id,
+      image: imageUrl,
+   imagePublicId,  // save this for deletion
     });
 
-    await newFood.save();
-    res.json({ success: true, data: newFood });
+    res.status(201).json({ success: true, message: "Food added successfully", food: newFood });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Server error" });
+    console.error("Add Food Error:", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 

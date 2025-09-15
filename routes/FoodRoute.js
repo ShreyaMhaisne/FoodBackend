@@ -1,5 +1,6 @@
 import express from "express";
 import multer from "multer";
+import adminAuth from "../middleware/adminAuth.js"; 
 import { addFood, listFood, removeFood } from "../controllers/foodController.js";
 import authMiddleware from "../middleware/auth.js";
 import cloudinary from "../config/cloudinary.js";
@@ -17,9 +18,7 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage });
-
-foodRouter.post("/add", authMiddleware, upload.single("image"), addFood);
+foodRouter.post("/add", authMiddleware, adminAuth, upload.single("image"), addFood);
 foodRouter.get("/list", listFood);
-foodRouter.post("/remove", authMiddleware, removeFood);
-
+foodRouter.post("/remove", authMiddleware, adminAuth, removeFood);
 export default foodRouter;

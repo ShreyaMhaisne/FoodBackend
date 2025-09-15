@@ -11,26 +11,25 @@ const createToken = (id) => {
 //login user
 
 const loginUser = async (req, res) => {
- const {email,password}=req.body;
-  console.log("Login request body:", req.body);
- try {
-    const user = await UserModel.findOne({email});
-    if (!user) {
-        return res.json({success:false,message:"User Doesn't exist"})
-    }
+  const { email, password } = req.body;
+  try {
+    const user = await UserModel.findOne({ email });
+    if (!user) return res.json({ success: false, message: "User doesn't exist" });
 
-    const isMatch = await bcrypt.compare(password,user.password);
-    if (!isMatch) {
-        return res.json({success:false, message:"invalid credentials"})
-    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.json({ success: false, message: "Invalid credentials" });
 
-    const token = createToken(user._id);
-    res.json({success:true,token})
- } catch (error) {
-      console.error("Login Error:", error.message);
-   res.status(500).json({ success: false, message: error.message });
- }
-}
+    const token = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.json({ success: true, token, isAdmin: user.isAdmin });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 
 // register user
