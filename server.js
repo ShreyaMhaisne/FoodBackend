@@ -29,7 +29,7 @@ app.use(cors({
   origin: [
     "http://localhost:5173",                 // admin local dev
     "http://localhost:5174",                 // admin local dev
-    "https://food-admin-nu.vercel.app/",         // deployed admin
+    "https://food-admin-nu.vercel.app",         // deployed admin
     "https://food-frontend-woad.vercel.app"  // normal user frontend
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
